@@ -1,10 +1,16 @@
 'use client'
-
+import Image from 'next/image'
 import { submeterConfirmacao } from '@/app/actions'
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#fdfcf8] flex items-center justify-center p-4 text-[#161616]">
+    <main className="min-h-screen bg-[#fdfcf8] flex flex-col items-center justify-center p-4 text-[#161616]">
+
+      {/* Background image*/}
+      <div className="relative w-full h-[400px] mb-6 overflow-hidden rounded-2xl">
+          <Image src="/avo.jpeg" alt="Foto dos do lenço" fill className="object-cover" priority ></Image>
+      </div>
+      {/* Confirmation form*/}
       <div className="max-w-md w-full bg-white p-10 rounded-3xl shadow-sm border border-zinc-100">
         <div className="text-center mb-10">
           <h1 className="text-3xl font-serif mb-2">João & Maria</h1>
