@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Montserrat:wght@200;300;400&display=swap');
 @import "tailwindcss";
 
 :root {
@@ -23,4 +24,391 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* envelope.css */
+:root {
+    --envelope-x: 100%;
+    --envelope-y: 100%;
+    --envelope-bg: url('https://images.unsplash.com/photo-1637325258040-d2f09636ecf6?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGFwZXIlMjB0ZXh0dXJlfGVufDB8fDB8fHww');
+    --envelope-shadow: black;
+    --bg-color: #1a1a1a;
+    --btn-bg: url('/selo.png');
+    --btn-text: white;
+    --border-radius-top: 2rem;
+    --open-speed: 2.5s; /* Ajustado para uma transição mais fluida e não tão demorada */
+}
+
+body {
+    background: var(--bg-color);
+    margin: 0;
+    background-color: #ffffff;
+    overflow-y: hidden; 
+    overflow-x: hidden;
+}
+
+.envelope-section {
+    position: fixed; /* Adicionado: prende a secção ao ecrã */
+    top: 0;
+    left: 0;
+    z-index: 9999; /* Adicionado: garante que fica por cima de tudo */
+    background: var(--bg-color); /* Adicionado: evita que o vídeo se veja por trás */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    transition: opacity 2s ease-in-out; 
+    opacity: 1;
+    overflow: hidden;
+}
+
+.cssletter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    max-width: 950px;
+    max-height: 630px;
+}
+
+.envelope {
+    position: relative;
+    width: var(--envelope-x);
+    height: var(--envelope-y);
+    background: var(--envelope-bg);
+    background-size: cover;
+   /* box-shadow: inset 0 0 30px -5px var(--envelope-shadow), 
+                0 20px 50px rgba(0, 0, 0, 0.2);*/
+    transition: transform 0.8s ease;
+}
+
+/*aqui*/
+.envelope-flap {
+    width: 100%;
+    height: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    transform-origin: top;
+    transition: transform var(--open-speed) cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    transform-style: preserve-3d;
+    filter: drop-shadow(0 2vmin 1.5vmin rgba(0, 0, 0, 0.1));
+    transition: transform var(--open-speed) cubic-bezier(0.8, 0, 0.8, 1);
+}
+
+.flap-triangle {
+    width: 100%;
+    height: 100%;
+    background: var(--envelope-bg);
+    background-color: #d8cbb8;
+    background-size: cover;
+    background-position: center;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+.open-btn {
+    z-index: 100;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, 50%);
+    width: 120px;   
+    height: 120px;
+    border-radius: 100%;
+    background-image: var(--btn-bg);
+    background-size: cover;    
+    background-position: center; 
+    background-repeat: no-repeat;
+    background-color: white;
+    color: var(--btn-text);
+    box-shadow: 0 4px 15px rgba(38, 43, 37, 0.5);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all calc(var(--open-speed) + 1s) cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: auto;
+    border: none;
+    opacity: 1;
+    z-index: 4;
+}
+
+.open-btn::after {
+    content: "";
+    position: absolute;
+    width: 160px; 
+    height: 160px;
+    background-image: var(--btn-bg);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none; 
+}
+
+.open-btn:hover {
+    transform: translate(-50%, 50%) scale(1.1);
+}
+
+.envelope.active .open-btn {
+    transform: translate(-50%, -100%) scale(0.8);
+    pointer-events: none;
+    opacity: 0;
+}
+
+.envelope.active .envelope-flap {
+    transform: perspective(1000px) rotateX(180deg);
+    z-index: 1;
+}
+
+.envelope-folds {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 4;
+    pointer-events: none;
+}
+
+.inner-light {
+    position: absolute;
+    top: -100%;
+    left: 50%;
+    transform: translate(-50%, 0) scale(1) rotate(45deg);
+    width: 100%;
+    height: 100%;
+    background: #efede5;
+    filter: blur(50px);
+    z-index: 1; 
+    opacity: 0;
+    pointer-events: none;
+
+
+    transition: all 1.2s ease-out;
+} 
+
+.envelope.active .inner-light {
+    opacity: 0.7;
+    transform: translate(-50%, 40%) scale(3.2) rotate(45deg);
+}
+
+/* Transição suave de saída do envelope */
+.envelope-section:has(.envelope.active) {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1.5s ease-in-out;
+    transition-delay: 1.5s; /* Espera a aba abrir antes de desaparecer */
+}
+
+/* --- Secção Main Content (Vídeo a 100vh) --- */
+.main-content {
+    position: relative; /* Mudou de absolute para relative */
+    width: 100%;
+    z-index: 1; /* Removido o -1 */
+    opacity: 0;
+    transition: opacity 2s ease-in;
+}
+
+.main-content.show {
+    z-index: 1000;
+    opacity: 1;
+}
+
+/* Wrapper que segura o vídeo a ocupar exatamente 100% do ecrã */
+.video-hero {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.video-hero video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+/* Secção nova onde podes escrever o resto do convite */
+.info-section {
+    background: #ffffff;
+    padding: 80px 20px;
+    min-height: 100vh; /* Dá bastante espaço para testares o scroll */
+    text-align: center;
+    color: #333; /* Cor do texto */
+}
+
+/* O vídeo ocupa 100vh e 100vw sem distorcer */
+.main-content video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.content-text {
+    position: relative;
+    z-index: 2; /* Fica por cima do vídeo */
+    color: white;
+    text-align: center;
+    max-width: 800px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente para ler melhor o texto em cima do vídeo */
+    border-radius: 10px;
+}
+
+/* Estado visível da main content */
+.main-content.show {
+    z-index: 1000;
+    opacity: 1;
+}
+
+@media screen and (max-width: 900px) {
+    .cssletter {
+        max-width: 100vw !important;
+        max-height: 100vh !important;
+    }
+    .envelope-flap {
+        width: 1000px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .envelope.active .envelope-flap {
+        transform: translateX(-50%) perspective(1000px) rotateX(180deg);
+        z-index: 1;
+    }
+    .envelope-section {
+        overflow: hidden;
+    }
+}
+
+
+/*1st info*/
+/* --- Estilos do Cartão Elegante --- */
+
+.info-section {
+    background: #ffffff;
+    /* Reduzimos o padding para o cartão ocupar bem o ecrã */
+    padding: 0; 
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wedding-invite-card {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    height: 100vh; /* Ocupa a altura toda do ecrã */
+    min-height: 700px;
+    background-color: #ffffff;
+    
+    /* A MAGIA DO CORTE: Tudo o que sair das margens desta div desaparece */
+    overflow: hidden; 
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* As Letras Gigantes de Fundo */
+.bg-letter {
+    position: absolute;
+    font-family: 'Bodoni Moda', serif; /* Fonte clássica e elegante */
+    font-size: 55vh; /* Tamanho responsivo baseado na altura do ecrã */
+    color: #aeb19d; /* Cor verde azeitona / caqui suave da imagem */
+    line-height: 0.7; /* Ajuda a não criar uma caixa invisível gigante */
+    user-select: none; /* Impede que os convidados selecionem a letra sem querer */
+    z-index: 1;
+}
+
+.m-letter {
+    /* Empurra a letra para cima para fazer o corte */
+    top: -8vh; 
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.j-letter {
+    /* Empurra a letra para baixo para fazer o corte */
+    bottom: 0vh; 
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* O Texto Central */
+.invite-details {
+    position: relative;
+    z-index: 2; /* Mantém o texto por cima das letras caso se sobreponham num telemóvel pequeno */
+    display: flex;
+    flex-direction: column;
+    gap: 50px; /* Espaço entre os 3 blocos de texto */
+    font-family: 'Montserrat', sans-serif;
+    color: #212721;
+}
+
+.couple-names {
+    font-weight: 200; /* Letra muito fina */
+    font-size: 2.2rem;
+    letter-spacing: 0.4em; /* Letras bem espaçadas */
+    margin: 0;
+}
+
+.invite-datetime p {
+    margin: 12px 0;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    font-size: 1.1rem;
+}
+
+.invite-time {
+    font-size: 1rem;
+}
+
+.invite-location p {
+    margin: 12px 0;
+}
+
+.venue-name {
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    font-size: 1.1rem;
+}
+
+.venue-address {
+    font-weight: 300;
+    letter-spacing: 0.25em;
+    font-size: 0.65rem; /* Endereço bem pequeno */
+    color: #333;
+}
+
+/* Ajustes para Telemóveis */
+@media screen and (max-width: 600px) {
+    .bg-letter {
+        font-size: 45vh;
+    }
+    .couple-names {
+        font-size: 1.8rem;
+    }
+    .invite-details {
+        gap: 40px;
+    }
 }
