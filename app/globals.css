@@ -1,24 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Montserrat:wght@200;300;400&display=swap');
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
 
 body {
   background: var(--background);
@@ -28,39 +10,51 @@ body {
 
 /* envelope.css */
 :root {
+    --background: #ffffff;
+    --foreground: #171717;
+    --color-background: var(--background);
+     --color-foreground: var(--foreground);
+    --font-sans: var(--font-geist-sans);
+    --font-mono: var(--font-geist-mono);
     --envelope-x: 100%;
     --envelope-y: 100%;
     --envelope-bg: url('/paperTextureSupaLight.png');
+    --btn-text: white;
     --envelope-shadow: black;
     --bg-color: #1e2827;
     --btn-bg: url('/selo.png');
-    --btn-text: white;
+    
+    --open-speed: 1.5s; /* Ajustado para uma transição mais fluida e não tão demorada */  
     --border-radius-top: 2rem;
-    --open-speed: 2.5s; /* Ajustado para uma transição mais fluida e não tão demorada */
+    /* --envelope-bg: transparent; */
+    
+
 }
 
 body {
-    background: var(--bg-color);
     margin: 0;
-    background-color: #ffffff;
-    overflow-y: hidden; 
+    background: var(--bg-color);
+    background-color: #dad9c9d9;
     overflow-x: hidden;
+    overflow-y: hidden; 
 }
 
 .envelope-section {
     position: fixed; /* Adicionado: prende a secção ao ecrã */
     top: 0;
     left: 0;
-    z-index: 9999; /* Adicionado: garante que fica por cima de tudo */
-    background: var(--bg-color); /* Adicionado: evita que o vídeo se veja por trás */
+    z-index: 99; /* Adicionado: garante que fica por cima de tudo */
+    background: var(--bg-color); 
+    /* Adicionado: evita que o vídeo se veja por trás */
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100vw;
     height: 100vh;
-    transition: opacity 2s ease-in-out; 
-    opacity: 1;
+    transition: opacity 1.5s ease-in-out; 
     overflow: hidden;
+    opacity: 1;
+   
 }
 
 .cssletter {
@@ -80,6 +74,7 @@ body {
     width: var(--envelope-x);
     height: var(--envelope-y);
     background: var(--envelope-bg);
+    background-color: #d9d0c3;
     background-size: cover;
    /* box-shadow: inset 0 0 30px -5px var(--envelope-shadow), 
                 0 20px 50px rgba(0, 0, 0, 0.2);*/
@@ -106,7 +101,7 @@ body {
     width: 100%;
     height: 100%;
     background: var(--envelope-bg);
-    background-color: #d8cbb8;
+    background-color: #d9d0c3;
     background-size: cover;
     background-position: center;
     clip-path: polygon(0 0, 100% 0, 50% 100%);
@@ -135,8 +130,9 @@ body {
     transition: all calc(var(--open-speed) + 1s) cubic-bezier(0.4, 0, 0.2, 1);
     pointer-events: auto;
     border: none;
-    opacity: 1;
     z-index: 4;
+    opacity: 1;
+  
 }
 
 .open-btn::after {
@@ -184,27 +180,24 @@ body {
     transform: translate(-50%, 0) scale(1) rotate(45deg);
     width: 100%;
     height: 100%;
-    background: #efede5;
-    filter: blur(50px);
+    background: #e6e4dc;
+    filter: blur(5000px);
     z-index: 1; 
     opacity: 0;
+    transition: all 500ms cubic-bezier(0.8, 0, 1, 1);
     pointer-events: none;
-
-
-    transition: all 1.2s ease-out;
 } 
 
 .envelope.active .inner-light {
-    opacity: 0.7;
-    transform: translate(-50%, 40%) scale(3.2) rotate(45deg);
+    transform: translate(-50%, 40%) scale(3) rotate(45deg);
+    opacity: 0.5;
 }
 
 /* Transição suave de saída do envelope */
 .envelope-section:has(.envelope.active) {
     opacity: 0;
     pointer-events: none;
-    transition: opacity 1.5s ease-in-out;
-    transition-delay: 1.5s; /* Espera a aba abrir antes de desaparecer */
+    transition: opacity 1s ease-in-out; /* Espera a aba abrir antes de desaparecer */
 }
 
 /* --- Secção Main Content (Vídeo a 100vh) --- */
@@ -213,7 +206,7 @@ body {
     width: 100%;
     z-index: 1; /* Removido o -1 */
     opacity: 0;
-    transition: opacity 2s ease-in;
+    transition: opacity 1.5s ease-in;
 }
 
 .main-content.show {
@@ -298,7 +291,29 @@ body {
         overflow: hidden;
     }
 }
+.aura-effect{
+   z-index: 100;
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100vw;
+   height: 100vh;
+   background: radial-gradient(
+        circle, 
+        rgba(180, 16, 16, 0.15) 0%, 
+        rgba(215, 173, 32, 0.08) 40%, 
+        transparent 70%
+    );
+    border-radius: 50%;
+    animation: pulse-global 2s  ease-in-out;
+    filter: blur(60px);
+   z-index:10000;
+}
 
+@keyframes pulse-global {
+    0%, 100% { transform: scale(1); opacity: 0.3; }
+    50% { transform: scale(1.2); opacity: 0.6; }
+}
 
 /*1st info*/
 /* --- Estilos do Cartão Elegante --- */
