@@ -93,7 +93,7 @@ export default function WeddingInvite() {
                           
                           <div className="invite-datetime">
                               <p>4 | OUTUBRO | 2026</p>
-                              <p className="invite-time">14H30</p>
+                              <p className="invite-time">14H00</p>
                           </div>
                           
                           <div className="invite-location">

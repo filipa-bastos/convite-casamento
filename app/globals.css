@@ -30,7 +30,7 @@ body {
 :root {
     --envelope-x: 100%;
     --envelope-y: 100%;
-    --envelope-bg: url('/paperTexture.jpg');
+    --envelope-bg: url('/paperTextureLight.png');
     --envelope-shadow: black;
     --bg-color: #1a1a1a;
     --btn-bg: url('/selo.png');
