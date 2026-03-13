@@ -30,9 +30,9 @@ body {
 :root {
     --envelope-x: 100%;
     --envelope-y: 100%;
-    --envelope-bg: url('/paperTextureLight.png');
+    --envelope-bg: url('/paperTextureSupaLight.png');
     --envelope-shadow: black;
-    --bg-color: #1a1a1a;
+    --bg-color: #1e2827;
     --btn-bg: url('/selo.png');
     --btn-text: white;
     --border-radius-top: 2rem;
@@ -72,6 +72,7 @@ body {
     height: 100vh;
     max-width: 950px;
     max-height: 630px;
+    box-shadow: 0 0 100px 0px rgba(29, 31, 30, 0.8);
 }
 
 .envelope {
