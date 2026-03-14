@@ -3,9 +3,11 @@
 import { useState, useRef, useEffect } from 'react';
 import Envelope from './components/envelope';
 import VideoHero from './components/Video';
-import InviteDetails from './components/InviteDetails';
 import RSVPForm from './components/Form';
-import CronogramaDia from './components/CronogramaDia';
+import Countdown from './components/Countdown';
+import Localizacao from './components/Localizacao';
+import CronogramaNovo from './components/CronogramaNovo';
+import Alojamento from './components/Alojamento';
 
 export default function WeddingInvite() {
   const [isOpen, setIsOpen] = useState(false);
@@ -41,8 +43,10 @@ export default function WeddingInvite() {
 
       <section className={`main-content ${showVideo ? 'show' : ''}`} id="vid-section">
         <VideoHero videoRef={videoRef} />
-        <InviteDetails />
-        <CronogramaDia/>
+        <Countdown />
+        <Localizacao />
+        <CronogramaNovo />
+        <Alojamento />
         <RSVPForm />
         
       </section>

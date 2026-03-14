@@ -23,9 +23,9 @@ body {
     --envelope-shadow: black;
     --bg-color: #1e2827;
     --btn-bg: url('/selo.png');
-    
-    --open-speed: 1.5s; /* Ajustado para uma transição mais fluida e não tão demorada */  
     --border-radius-top: 2rem;
+    --open-speed: 1.5s; /* Ajustado para uma transição mais fluida e não tão demorada */  
+   
     /* --envelope-bg: transparent; */
     
 
@@ -52,9 +52,8 @@ body {
     width: 100vw;
     height: 100vh;
     transition: opacity 1.5s ease-in-out; 
-    overflow: hidden;
     opacity: 1;
-   
+    overflow: hidden;
 }
 
 .cssletter {
@@ -62,10 +61,9 @@ body {
     justify-content: center;
     align-items: center;
     position: relative;
-    width: 100vw;
     height: 100vh;
-    max-width: 950px;
-    max-height: 630px;
+    width: 100vw;
+    
     box-shadow: 0 0 100px 0px rgba(29, 31, 30, 0.8);
 }
 
@@ -222,8 +220,9 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
     overflow: hidden;
+    align-items: center;
+    filter: sepia(0.1) saturate(0.5) contrast(0.9);
 }
 
 .video-hero video {
@@ -335,10 +334,8 @@ body {
     height: 100vh; /* Ocupa a altura toda do ecrã */
     min-height: 700px;
     background-color: #ffffff;
-    
     /* A MAGIA DO CORTE: Tudo o que sair das margens desta div desaparece */
     overflow: hidden; 
-    
     display: flex;
     align-items: center;
     justify-content: center;

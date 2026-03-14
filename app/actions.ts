@@ -26,7 +26,7 @@ export async function submeterConfirmacao(formData: FormData) {
   try {
     await resend.emails.send({
       from: 'Casamento <onboarding@resend.dev>',
-      to: ['filipabastossousa@gmail.com','maria.troca13@gmail.com'], // COLOCA O TEU EMAIL AQUI
+      to: ['filipabastossousa@gmail.com'], // COLOCA O TEU EMAIL AQUI
       subject: `Nova resposta: ${nome}`,
       html: `<p>O convidado <strong>${nome}</strong> respondeu: ${vira ? 'VOU!' : 'Não vou.'}</p>`
     })
