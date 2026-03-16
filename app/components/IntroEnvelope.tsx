@@ -16,21 +16,21 @@ export default function IntroEnvelope({ onFinish, audioRef, isFading }: IntroEnv
     if (hasStarted) return;
     setHasStarted(true);
 
-    // 1. Tocar a música (desbloqueada pelo clique)
-    if (audioRef && audioRef.current) {
+    // 1. Tocar a música com proteção extra (audioRef?.current)
+    // O "?" garante que se não houver áudio, ele simplesmente ignora em vez de crashar
+    if (audioRef?.current) {
       audioRef.current.play().catch(err => console.log("Erro ao tocar áudio:", err));
     }
 
     // 2. Tocar o vídeo do envelope
-    if (videoRef.current) {
+    if (videoRef?.current) {
       videoRef.current.play().catch(err => console.log("Erro ao tocar vídeo:", err));
     }
 
-    // 3. Avisar o componente pai que a animação começou
-    // Esperamos os 2 segundos do vídeo antes de iniciar o fade out
-    setTimeout(() => {
-      onFinish();
-    }, 2000);
+    // 3. Avisar o componente pai
+    // Nota: Se o teu vídeo dura 2s, chamamos o onFinish logo ou com delay? 
+    // Como queres que a opacity do fundo comece a mudar logo, podemos chamar onFinish() já.
+    onFinish();
   };
 
   return (
@@ -45,9 +45,15 @@ export default function IntroEnvelope({ onFinish, audioRef, isFading }: IntroEnv
         src="/envelope-abrir.mp4"
         className="absolute inset-0 w-full h-full object-cover"
         playsInline
-        muted={false} // Se o vídeo tiver som próprio de papel a rasgar, ele tocará aqui
+        muted={false}
       />
-
+      
+      {/* Pequena dica: Se o vídeo ainda não começou, podes querer um texto por cima */}
+      {!hasStarted && (
+        <div className="relative z-10 text-[#6b755d] font-lovely text-4xl animate-pulse">
+          Toca para abrir
+        </div>
+      )}
     </div>
   );
 }
