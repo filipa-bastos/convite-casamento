@@ -38,11 +38,11 @@ export default function VideoHero({ videoRef }: VideoHeroProps) {
 
           {/* Os Nomes */}
           <div className="flex flex-col items-center gap-2">
-            <h1 className="font-serif text-6xl md:text-8xl tracking-tighter leading-[0.8]">
+            <h1 className="font-lovely text-6xl md:text-8xl  ">
               Maria
             </h1>
             <span className="font-sans text-3xl md:text-4xl font-extralight py-2">&</span>
-            <h1 className="font-serif text-6xl md:text-8xl tracking-tighter leading-[0.8]">
+            <h1 className="font-lovely  text-6xl md:text-8xl ">
               João
             </h1>
           </div>

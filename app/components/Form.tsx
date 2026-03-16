@@ -72,6 +72,24 @@ export default function RSVPForm() {
           >
             Confirmar Agora
           </button>
+          <div className="mt-10 flex flex-col items-center gap-6 text-center">
+  
+          {/* Linha divisória subtil */}
+          <div className="w-12 h-[1px] bg-white/20" />
+
+          {/* Texto de Ajuda (Individual) */}
+          <p className="text-[14px] font-light leading-relaxed text-[#3e4741] italic max-w-[380px]">
+            Para nos ajudar na organização, pedimos que cada convidado preencha este formulário individualmente.
+          </p>
+
+          {/* Data Limite (Destaque Suave) */}
+          <div className="bg-white/5 border border-white/10 px-6 py-3 rounded-full">
+            <p className="text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-[#3e4741]">
+              Confirmar até 1 de Junho
+            </p>
+          </div>
+
+        </div>
         </form>
       </div>
     </section>

@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Montserrat:wght@200;300;400&display=swap');
 @import "tailwindcss";
-
+@theme {
+    --font-lovely: var(--font-lovely-may);
+  }
 
 body {
   background: var(--background);
@@ -24,9 +26,10 @@ body {
     --bg-color: #1e2827;
     --btn-bg: url('/selo.png');
     --border-radius-top: 2rem;
+    --envelope-bg: transparent;
     --open-speed: 1.5s; /* Ajustado para uma transição mais fluida e não tão demorada */  
    
-    /* --envelope-bg: transparent; */
+   
     
 
 }
@@ -35,9 +38,14 @@ body {
     margin: 0;
     background: var(--bg-color);
     background-color: #dad9c9d9;
-    overflow-x: hidden;
     overflow-y: hidden; 
+    overflow-x: hidden;
+   
 }
+
+.font-lovely {
+    font-family: var(--font-lovely-may), cursive;
+  }
 
 .envelope-section {
     position: fixed; /* Adicionado: prende a secção ao ecrã */
@@ -407,10 +415,11 @@ body {
 }
 
 .venue-address {
+    color: #333;
     font-weight: 300;
     letter-spacing: 0.25em;
     font-size: 0.65rem; /* Endereço bem pequeno */
-    color: #333;
+   
 }
 
 /* Ajustes para Telemóveis */
@@ -424,4 +433,11 @@ body {
     .invite-details {
         gap: 40px;
     }
+}
+
+/*maps*/
+.default-place-card-container{
+    opacity: 0;
+    display: none !important;
+    
 }

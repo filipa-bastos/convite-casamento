@@ -8,6 +8,7 @@ import Countdown from './components/Countdown';
 import Localizacao from './components/Localizacao';
 import CronogramaNovo from './components/CronogramaNovo';
 import Alojamento from './components/Alojamento';
+import Footer from './components/Footer';
 
 export default function WeddingInvite() {
   const [isOpen, setIsOpen] = useState(false);
@@ -48,6 +49,7 @@ export default function WeddingInvite() {
         <CronogramaNovo />
         <Alojamento />
         <RSVPForm />
+        <Footer />
         
       </section>
     </main>

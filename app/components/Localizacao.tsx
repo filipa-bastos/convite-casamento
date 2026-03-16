@@ -45,14 +45,14 @@ export default function Localizacao() {
           </h3>
           
           <h4 className="text-2xl font-serif text-[#849072] mb-3">
-            Arroios - Vila Real
+          Quinta do Paço Hotel
           </h4>
 
           {/* Horário com Ícone de Relógio */}
           <div className="flex items-center gap-2 text-[#6b755d] mb-8 bg-[#b3be9f]/10 px-4 py-1 rounded-full">
             <LuClock size={16} />
             <span className="text-sm font-light">
-              das 14:30 até às 04:00
+            Das 14h30 às 4h00
             </span>
           </div>
 
@@ -71,8 +71,8 @@ export default function Localizacao() {
             <iframe
               title="Mapa Localização"
               width="100%"
-              height="100%"
-              style={{ border: 0 }}
+              height="110%"
+              style={{ border: 0, marginTop: '-50px' }}
               loading="lazy"
               allowFullScreen
               referrerPolicy="no-referrer-when-downgrade"
