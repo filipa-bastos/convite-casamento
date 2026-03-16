@@ -18,28 +18,31 @@ export default function WeddingInvite() {
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
-    // Aplicamos o gutter estável ao HTML para evitar o "shift"
+    // Evita o salto lateral reservando o espaço do scroll
     document.documentElement.style.scrollbarGutter = 'stable';
 
     if (!showContent) {
       document.body.style.overflow = 'hidden';
-      // Adicionamos uma classe ao html ou body para esconder a barra visualmente
       document.documentElement.classList.add('hide-scrollbar');
     } else {
       document.body.style.overflow = 'auto';
-      // Removemos a classe para a barra aparecer normalmente quando o site abre
       document.documentElement.classList.remove('hide-scrollbar');
     }
   }, [showContent]);
 
   const handleFinishIntro = () => {
+    // Inicia o fade-in do conteúdo e o fade-out do envelope
     setShowContent(true);
+    
+    // Toca o vídeo da Hero Section
     if (videoHeroRef.current) {
       videoHeroRef.current.play().catch(() => {
         videoHeroRef.current!.muted = true;
         videoHeroRef.current?.play();
       });
     }
+
+    // Remove o envelope do DOM após 1 segundo (tempo da transição)
     setTimeout(() => {
       setIsIntroFinished(true);
     }, 1000);
@@ -47,6 +50,7 @@ export default function WeddingInvite() {
 
   return (
     <main className="relative w-full bg-[#F0EDE2]">
+      {/* Garante que o ficheiro na public se chama musica.mp3 */}
       <audio ref={audioRef} src="/musica.mp3" loop preload="auto" />
 
       <section 

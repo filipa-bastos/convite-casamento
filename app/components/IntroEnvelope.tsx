@@ -16,27 +16,26 @@ export default function IntroEnvelope({ onFinish, audioRef, isFading }: IntroEnv
     if (hasStarted) return;
     setHasStarted(true);
 
-    // 1. Tocar a música com proteção extra (audioRef?.current)
-    // O "?" garante que se não houver áudio, ele simplesmente ignora em vez de crashar
+    // 1. Tocar a música com proteção (?) contra erro de undefined
     if (audioRef?.current) {
-      audioRef.current.play().catch(err => console.log("Erro ao tocar áudio:", err));
+      audioRef.current.play().catch(err => console.log("Erro áudio:", err));
     }
 
     // 2. Tocar o vídeo do envelope
     if (videoRef?.current) {
-      videoRef.current.play().catch(err => console.log("Erro ao tocar vídeo:", err));
+      videoRef.current.play().catch(err => console.log("Erro vídeo:", err));
     }
 
-    // 3. Avisar o componente pai
-    // Nota: Se o teu vídeo dura 2s, chamamos o onFinish logo ou com delay? 
-    // Como queres que a opacity do fundo comece a mudar logo, podemos chamar onFinish() já.
-    onFinish();
+    // 3. ESPERAR a animação do vídeo (2 segundos) antes de avisar o pai
+    setTimeout(() => {
+      onFinish();
+    }, 2000);
   };
 
   return (
     <div 
       onClick={handleStart}
-      className={`hide-scrollbar intro-envelope fixed inset-0 z-[100] flex items-center justify-center bg-[#F0EDE2] cursor-pointer transition-opacity duration-1000 ease-in-out ${
+      className={`hide-scrollbar fixed inset-0 z-[100] flex items-center justify-center bg-[#F0EDE2] cursor-pointer transition-opacity duration-1000 ease-in-out ${
         isFading ? 'opacity-0 pointer-events-none' : 'opacity-100'
       }`}
     >
@@ -48,12 +47,6 @@ export default function IntroEnvelope({ onFinish, audioRef, isFading }: IntroEnv
         muted={false}
       />
       
-      {/* Pequena dica: Se o vídeo ainda não começou, podes querer um texto por cima */}
-      {!hasStarted && (
-        <div className="relative z-10 text-[#6b755d] font-lovely text-4xl animate-pulse">
-          Toca para abrir
-        </div>
-      )}
     </div>
   );
 }
