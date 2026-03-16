@@ -4,6 +4,30 @@
     --font-lovely: var(--font-lovely-may);
   }
 
+  html {
+    scrollbar-gutter: stable;
+    background-color: #F0EDE2; /* A cor do teu vídeo */
+  }
+  
+  /* Esconde a barra visualmente sem remover o espaço */
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none; /* Chrome, Safari e Opera */
+  }
+  
+  .hide-scrollbar {
+    -ms-overflow-style: none;  /* IE e Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+
+/*scroll indicator*/
+.intro-envelope::-webkit-scrollbar-thumb {
+    background-color: var(--gray-700);
+    border: 1px solid transparent;
+    background-clip: content-box;
+    border-radius: 9px;
+   
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -40,7 +64,6 @@ body {
     background-color: #dad9c9d9;
     overflow-y: hidden; 
     overflow-x: hidden;
-   
 }
 
 .font-lovely {

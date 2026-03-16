@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import Envelope from './components/envelope';
+import IntroEnvelope from './components/IntroEnvelope';
 import VideoHero from './components/Video';
 import RSVPForm from './components/Form';
 import Countdown from './components/Countdown';
@@ -11,47 +11,65 @@ import Alojamento from './components/Alojamento';
 import Footer from './components/Footer';
 
 export default function WeddingInvite() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [showVideo, setShowVideo] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const [showContent, setShowContent] = useState(false); 
+  const [isIntroFinished, setIsIntroFinished] = useState(false); 
+  
+  const videoHeroRef = useRef<HTMLVideoElement>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
-    document.body.style.overflowY = 'hidden';
-    document.body.style.overflowX = 'hidden';
-    return () => {
-      document.body.style.overflowY = 'auto';
-      document.body.style.overflowX = 'auto';
-    };
-  }, []);
+    // Aplicamos o gutter estável ao HTML para evitar o "shift"
+    document.documentElement.style.scrollbarGutter = 'stable';
 
-  const handleOpenEnvelope = () => {
-    setIsOpen(true);
+    if (!showContent) {
+      document.body.style.overflow = 'hidden';
+      // Adicionamos uma classe ao html ou body para esconder a barra visualmente
+      document.documentElement.classList.add('hide-scrollbar');
+    } else {
+      document.body.style.overflow = 'auto';
+      // Removemos a classe para a barra aparecer normalmente quando o site abre
+      document.documentElement.classList.remove('hide-scrollbar');
+    }
+  }, [showContent]);
+
+  const handleFinishIntro = () => {
+    setShowContent(true);
+    if (videoHeroRef.current) {
+      videoHeroRef.current.play().catch(() => {
+        videoHeroRef.current!.muted = true;
+        videoHeroRef.current?.play();
+      });
+    }
     setTimeout(() => {
-      setShowVideo(true);
-      document.body.style.overflowY = 'auto';
-      if (videoRef.current) {
-        videoRef.current.play().catch(error => {
-          videoRef.current!.muted = true;
-          videoRef.current?.play();
-        });
-      }
-    }, 1000); 
+      setIsIntroFinished(true);
+    }, 1000);
   };
 
   return (
-    <main>
-      <Envelope isOpen={isOpen} onOpen={handleOpenEnvelope} />
+    <main className="relative w-full bg-[#F0EDE2]">
+      <audio ref={audioRef} src="/musica.mp3" loop preload="auto" />
 
-      <section className={`main-content ${showVideo ? 'show' : ''}`} id="vid-section">
-        <VideoHero videoRef={videoRef} />
+      <section 
+        className={`transition-opacity duration-1000 ease-in-out ${
+          showContent ? 'opacity-100' : 'opacity-0'
+        }`}
+      >
+        <VideoHero videoRef={videoHeroRef} />
         <Countdown />
         <Localizacao />
         <CronogramaNovo />
         <Alojamento />
         <RSVPForm />
         <Footer />
-        
       </section>
+
+      {!isIntroFinished && (
+        <IntroEnvelope 
+          onFinish={handleFinishIntro} 
+          audioRef={audioRef} 
+          isFading={showContent} 
+        />
+      )}
     </main>
   );
 }
