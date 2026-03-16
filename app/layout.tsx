@@ -4,7 +4,7 @@ import "./globals.css";
 import localFont from 'next/font/local';
 
 const lovelyMay = localFont({
-  src: './fonts/Lovely-May/lovely-may-script.woff2',
+  src: './fonts/Lovely-May/Lovely-May-Script.woff2',
   variable: '--font-lovely-may',
 });
 
